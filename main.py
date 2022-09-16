@@ -1,6 +1,10 @@
 from flask import Flask
 
+from messenger.controller import messenger_controller
+
 app = Flask(__name__)
+
+app.register_blueprint(messenger_controller, url_prefix="/messenger")
 
 
 @app.route("/", methods=["GET", "POST"])
