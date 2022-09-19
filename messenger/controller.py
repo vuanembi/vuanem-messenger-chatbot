@@ -1,5 +1,3 @@
-import re
-
 from flask import Blueprint, request
 
 from messenger.verify.service import verify_service
@@ -19,6 +17,8 @@ def verify_controller():
 @messenger_controller.post("/")
 def webhook_controller():
     data = request.get_json(silent=True)
+
+    print(data)
 
     [handle_entry(entry) for entry in data["entry"]]
 
