@@ -3,8 +3,8 @@ name: Cloud Run
 on:
   push:
     branches:
-      # - master
-      - dev
+      - master
+      # - dev
   workflow_dispatch:
 
 concurrency: ${{ github.ref }}
@@ -22,10 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.set-outputs.outputs.image }}
+      svc-name: ${{ steps.set-outputs.outputs.svc-name }}
     steps:
       - if: github.ref_name == 'dev'
         run: |
-          echo "SERVICE_NAME=${{ env.NAME}}-dev" >> $GITHUB_ENV
+          echo "SERVICE_NAME=${{ env.NAME}}-${{ github.ref_name }}" >> $GITHUB_ENV
 
       - if: github.ref_name == 'master'
         run: |
@@ -33,11 +34,11 @@ jobs:
 
       - id: set-outputs
         run: |
-          echo "::set-output name=image::us-docker.pkg.dev/${{ env.PROJECT_ID }}/gcr.io/${{ env.SERVICE_NAME }}:${{ github.ref_name }}"
+          echo "::set-output name=image::us-docker.pkg.dev/${{ env.PROJECT_ID }}/gcr.io/${{ env.NAME }}:${{ github.ref_name }}"
           echo "::set-output name=svc-name::${{ env.SERVICE_NAME }}"
 
       - run: |
-          echo "FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
+          echo "FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
 
           echo "GCP_SA: ${{ env.GCP_SA }}" >> ${{ env.ENV_FILE }}
 
@@ -74,11 +75,23 @@ jobs:
       - set-env
       - build
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.ENV_KEY }}
+
+      - uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v0
+
       - run: >-
           gcloud run deploy ${{ needs.set-env.outputs.svc-name }}
           --image=${{ needs.set-env.outputs.image }}
           --concurrency=1
-          --memory=8Gi
+          --memory=4Gi
           --cpu=2
           --platform=managed
           --service-account=${{ env.GCP_SA }}
