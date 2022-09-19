@@ -28,7 +28,7 @@ def webhook_controller():
 def handle_entry(entry):
     messaging = entry["messaging"].pop()
 
-    if messaging.get("messages"):
+    if messaging.get("message"):
         handler = message_response_router
     else:
         handler = lambda _: True
