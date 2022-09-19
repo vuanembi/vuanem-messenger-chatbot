@@ -1,7 +1,5 @@
 FROM python:3.9-slim
 
-ARG BUILD_ENV
-
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONFAULTHANDLER=1
 ENV PYTHONHASHSEED=random
@@ -13,7 +11,9 @@ RUN pip install poetry
 WORKDIR /app
 COPY poetry.lock pyproject.toml /app/
 
-RUN poetry config virtualenvs.create false && poetry install $(if [ "$BUILD_ENV" = 'prod' ]; then echo '--no-dev'; fi) --no-root --no-interaction --no-ansi
+ENV POETRY_VIRTUALENVS_CREATE=false
+
+RUN poetry install --no-dev --no-root --no-interaction --no-ansi
 
 COPY . /app
 
