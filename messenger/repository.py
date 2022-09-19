@@ -20,8 +20,15 @@ unversioned_client = create_client(f"{BASE_URL}")
 
 def send_message(recipient_id: str, payload: dict) -> dict:
     payload = {
-        "messaging_type": "RESPONSE",
         "recipient": {"id": recipient_id},
         **payload,
     }
-    return client.post("me/messages", json=payload).json()
+
+    r = client.post("me/messages", json=payload)
+    data = r.json()
+    
+    if r.status_code == 200:
+        return data
+    else:
+        print(data)
+        return data
