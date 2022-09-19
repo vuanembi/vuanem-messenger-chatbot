@@ -1,6 +1,6 @@
 import re
 
-from messenger.message_response import debug_service
+from messenger.message_response.debug import service as debug_service
 
 def message_response_router(entry):
     messaging = entry["messaging"].pop()
