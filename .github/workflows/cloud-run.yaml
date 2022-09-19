@@ -38,7 +38,7 @@ jobs:
           echo "::set-output name=svc-name::${{ env.SERVICE_NAME }}"
 
       - run: |
-          echo "FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
+          echo "FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
 
           echo "GCP_SA: ${{ env.GCP_SA }}" >> ${{ env.ENV_FILE }}
 
@@ -95,7 +95,7 @@ jobs:
           --cpu=2
           --platform=managed
           --service-account=${{ env.GCP_SA }}
-          --region=us-central1
+          --region=${{ env.REGION }}
           --timeout=60
           --env-vars-file=${{ env.ENV_FILE }}
           --allow-unauthenticated

@@ -24,4 +24,4 @@ def send_message(recipient_id: str, payload: dict) -> dict:
         "recipient": {"id": recipient_id},
         **payload,
     }
-    return client.post("/", json=payload).json()
+    return client.post("me/messages", json=payload).json()
