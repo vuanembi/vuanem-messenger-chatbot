@@ -1,15 +1,24 @@
 import os
 
+import pytest
+
 from messenger.sender_action import service
 
-def test_mark_seen():
-    res = service.mark_seen(os.getenv('FB_PAGE_SCOPED_ID'))
-    assert res
 
-def test_typing_on():
-    res = service.typing_on(os.getenv('FB_PAGE_SCOPED_ID'))
-    assert res
+@pytest.fixture()
+def page_scoped_id():
+    return os.getenv("FB_PAGE_SCOPED_ID")
 
-def test_typing_off():
-    res = service.typing_off(os.getenv('FB_PAGE_SCOPED_ID'))
+
+@pytest.mark.parametrize(
+    "action",
+    [
+        service.mark_seen,
+        service.typing_on,
+        service.typing_off,
+    ],
+    ids=["mark_seen", "typing_on", "typing_off"],
+)
+def test_sender_action_service(action):
+    res = action(os.getenv("FB_PAGE_SCOPED_ID"))
     assert res
