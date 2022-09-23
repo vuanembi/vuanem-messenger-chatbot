@@ -11,4 +11,4 @@ def message_response_router(messaging):
     if debug_match:
         return debug_service.debug(messaging)
     else:
-        return echo_service(messaging)
+        return echo_service.echo(messaging)
