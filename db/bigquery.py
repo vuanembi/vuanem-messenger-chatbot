@@ -1,4 +1,7 @@
+import re
 from google.cloud import bigquery
+import numpy as np
+from datetime import datetime
 
 client = bigquery.Client()
 
