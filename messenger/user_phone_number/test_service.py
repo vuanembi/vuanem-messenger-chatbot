@@ -1,4 +1,4 @@
-from messenger.user_phone_number.service import check_phone_number, get_sender_id, timestamp_to_datetime, controller
+from messenger.user_phone_number.service import controller
 
 messaging = {
     "sender": {
@@ -16,21 +16,6 @@ messaging = {
         "text": "+84773314403"
     }
 }
-
-
-def test_get_phone_number():
-    phone_number = check_phone_number(messaging)
-    assert True
-
-
-def test_get_sender_id():
-    sender_id = get_sender_id(messaging)
-    assert sender_id == "1254459154682919"
-
-
-def test_timestamp_to_datetime():
-    ts = timestamp_to_datetime(messaging)
-    assert ts == "2017-08-16T17:52:56"
 
 
 def test_controller():

@@ -14,32 +14,16 @@ def insert(table, rows) -> int:
     return output_rows
 
 
-def get_sender_id(messaging) -> str:
-    return messaging["sender"]["id"]
-
-
-def check_phone_number(messaging) -> str:
+def quick_reply_phone_number_capture(messaging):
     rgx_phone = re.compile(r"^\+84[0-9]{3,14}$")
     payload = messaging["message"]["quick_reply"]["payload"]
 
     if re.findall(rgx_phone, payload):
-        return True
-    else:
-        return False
-
-
-def timestamp_to_datetime(messaging):
-    ts = messaging["timestamp"]
-    return datetime.utcfromtimestamp(ts).isoformat()
-
-
-def parse_data(messaging) -> list[dict]:
-    if check_phone_number(messaging):
         return [
             {
-                'sender_id': get_sender_id(messaging),
+                'sender_id': messaging["sender"]["id"],
                 'phone_number': messaging["message"]["quick_reply"]["payload"],
-                'created_at': timestamp_to_datetime(messaging)
+                'created_at': datetime.utcfromtimestamp(messaging["timestamp"]).isoformat()
             }
         ]
     else:
@@ -47,6 +31,6 @@ def parse_data(messaging) -> list[dict]:
 
 
 def controller(messaging):
-    rows = parse_data(messaging)
+    rows =quick_reply_phone_number_capture(messaging)
     res = insert('QuickReplies__PhoneNumber', rows=rows)
     return res
