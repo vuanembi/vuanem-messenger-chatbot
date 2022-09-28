@@ -2,6 +2,7 @@ from flask import Blueprint, request
 
 from messenger.verify.service import verify_service
 from messenger.message_response.router import message_response_router
+from messenger.messaging_referrals import service as messaging_referrals_service
 
 messenger_controller = Blueprint("messenger", __name__)
 
@@ -30,6 +31,8 @@ def handle_entry(entry):
 
     if messaging.get("message"):
         handler = message_response_router
+    elif messaging.get("messaging_referrals"):
+        handler = messaging_referrals_service.handler
     else:
         handler = lambda _: True
 
