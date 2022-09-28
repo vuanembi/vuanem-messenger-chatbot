@@ -1,6 +1,6 @@
 import json
 
-from messenger.message_response.repository import send_message_response
+from messenger.messages.repository import send_message_response
 
 
 def debug_send_message_response(messaging):

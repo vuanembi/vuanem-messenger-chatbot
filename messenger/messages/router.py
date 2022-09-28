@@ -1,7 +1,7 @@
 import re
 
-from messenger.message_response.debug import service as debug_service
-from messenger.message_response.echo import service as echo_service
+from messenger.messages.debug import service as debug_service
+from messenger.messages.echo import service as echo_service
 from messenger.quick_reply.phone_number import (
     service as quick_reply_phone_number_service,
 )

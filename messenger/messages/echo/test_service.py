@@ -1,4 +1,4 @@
-from messenger.message_response.echo import service
+from messenger.messages.echo import service
 
 
 messaging = {

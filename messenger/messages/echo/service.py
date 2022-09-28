@@ -1,4 +1,4 @@
-from messenger.message_response.repository import send_message_response
+from messenger.messages.repository import send_message_response
 from messenger.sender_action.service import mark_seen, typing_on, typing_off
 
 
