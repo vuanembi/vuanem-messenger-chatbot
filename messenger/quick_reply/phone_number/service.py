@@ -4,6 +4,10 @@ from datetime import datetime
 from db import bigquery
 
 
+def add():
+    return {"content_type": "user_phone_number"}
+
+
 def handler(messaging):
     phone_pattern = re.compile(r"^\+84[0-9]{3,14}$")
 
