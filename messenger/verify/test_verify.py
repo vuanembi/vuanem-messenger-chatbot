@@ -1,6 +1,6 @@
 import os
 
-from messenger.verify.service import verify_service
+from messenger import verify
 
 
 def test_verify_service():
@@ -11,6 +11,6 @@ def test_verify_service():
         "hub.verify_token": os.getenv("WEBHOOK_TOKEN"),
     }
 
-    result = verify_service(query)
+    result = verify.verify_service(query)
 
     assert result == challenge

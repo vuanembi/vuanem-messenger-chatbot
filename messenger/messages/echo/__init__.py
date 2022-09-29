@@ -1,15 +1,15 @@
 from messenger.messages.repository import send_message_response
-from messenger.sender_action.service import mark_seen, typing_on, typing_off
+from messenger.component import sender_action
 
 
-def echo(messaging: dict):
+def echo_service(messaging: dict):
     recipient_id = messaging["sender"]["id"]
     message_text = messaging["message"].get("text")
 
     if message_text:
-        mark_seen(recipient_id)
-        typing_on(recipient_id)
+        sender_action.mark_seen(recipient_id)
+        sender_action.typing_on(recipient_id)
         send_message_response(recipient_id, {"text": message_text})
-        typing_off(recipient_id)
+        sender_action.typing_off(recipient_id)
 
     return True

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from messenger.quick_reply.phone_number.service import handler
+from messenger.component.quick_reply.phone_number import handler
 
 
 def test_quick_reply_phone_number_handler_success():

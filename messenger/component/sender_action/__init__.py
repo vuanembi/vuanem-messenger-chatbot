@@ -7,3 +7,10 @@ def send_sender_action(sender_action: str):
         return send_message(recipient_id, payload)
 
     return _send
+
+
+mark_seen = send_sender_action("mark_seen")
+
+typing_on = send_sender_action("typing_on")
+
+typing_off = send_sender_action("typing_off")

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from messenger.messaging_referrals import service
+from messenger import messaging_referrals
 
 
 def test_message_referral_handler():
@@ -23,6 +23,6 @@ def test_message_referral_handler():
         },
     }
 
-    res = service.handler(messaging)
+    res = messaging_referrals.handler(messaging)
 
     assert not res
