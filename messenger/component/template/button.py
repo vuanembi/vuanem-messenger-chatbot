@@ -1,6 +1,6 @@
 import json
 
-from messenger.messaging_postbacks.postbacks import PostbackAction
+from messenger.postback.action import PostbackAction
 
 support_button = {
     "type": "postback",

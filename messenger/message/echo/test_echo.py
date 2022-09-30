@@ -1,4 +1,4 @@
-from messenger.messages import echo
+from messenger.message import echo
 
 
 messaging = {

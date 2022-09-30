@@ -1,4 +1,4 @@
-from messenger.messages import debug
+from messenger.message import debug
 
 messaging = {
     "sender": {"id": "3707575876035255"},
