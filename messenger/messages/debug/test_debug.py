@@ -1,5 +1,4 @@
-from messenger.message_response.echo import service
-
+from messenger.messages import debug
 
 messaging = {
     "sender": {"id": "3707575876035255"},
@@ -8,6 +7,7 @@ messaging = {
     "message": {"mid": "", "text": "ads"},
 }
 
-def test_echo():
-    res = service.echo(messaging)
+
+def test_debug_send_message_response_service():
+    res = debug.debug_service(messaging)
     assert res == True

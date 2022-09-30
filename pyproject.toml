@@ -8,6 +8,7 @@ authors = ["HM <hieumdd@gmail.com>"]
 python = "~3.9"
 httpx = "^0.23.0"
 Flask = "^2.2.2"
+google-cloud-bigquery = "^3.3.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.3"

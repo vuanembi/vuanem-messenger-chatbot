@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 
-from messenger.verify.service import verify_service
-from messenger.message_response.router import message_response_router
+from messenger import verify, messages, messaging_referrals, messaging_postbacks
 
 messenger_controller = Blueprint("messenger", __name__)
 
@@ -10,7 +9,7 @@ messenger_controller = Blueprint("messenger", __name__)
 def verify_controller():
     query = request.args
 
-    response = verify_service(query)
+    response = verify.verify_service(query)
     return response if response else ("ok", 200)
 
 
@@ -29,7 +28,14 @@ def handle_entry(entry):
     messaging = entry["messaging"].pop()
 
     if messaging.get("message"):
-        handler = message_response_router
+        handler = messages.handler
+
+    elif messaging.get("messaging_referrals"):
+        handler = messaging_referrals.handler
+
+    elif messaging.get("messaging_postbacks"):
+        handler = messaging_postbacks.handler
+        
     else:
         handler = lambda _: True
 
