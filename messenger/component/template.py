@@ -1,4 +1,4 @@
-def product_category_carousel_attachment():
+def product_category_attachment():
     return {
         "type": "template",
         "payload": {
@@ -45,7 +45,7 @@ def product_category_carousel_attachment():
     }
 
 
-def mattress_category_carousel_attachment():
+def mattress_category_attachment():
     return {
         "type": "template",
         "payload": {
