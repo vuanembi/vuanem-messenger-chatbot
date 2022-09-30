@@ -2,8 +2,10 @@ from messenger.repository import send_message
 
 
 def send_sender_action(sender_action: str):
-    def _send(recipient_id: str) -> dict:
+    def _send(messaging) -> dict:
+        recipient_id = messaging["sender"]["id"]
         payload = {"sender_action": sender_action}
+        
         return send_message(recipient_id, payload)
 
     return _send
