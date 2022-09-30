@@ -1,6 +1,9 @@
 import re
 from datetime import datetime
 
+from messenger.repository import send_message_response
+from messenger.component import converse
+
 from db import bigquery
 
 
@@ -28,6 +31,15 @@ def handler(messaging):
             ).isoformat(),
         }
 
-        return bigquery.insert("p_QuickReply__PhoneNumber", [data])
+        bigquery.insert("p_QuickReply__PhoneNumber", [data])
+
+        converse(
+            lambda messaging: send_message_response(
+                messaging["sender"]["id"],
+                {"text": "Vua Nệm cảm ơn, các tư vấn viên sẽ chấp nhận"},
+            ),
+            messaging,
+        )
+
     else:
         return None

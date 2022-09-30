@@ -17,4 +17,6 @@ RUN poetry install --no-dev --no-root --no-interaction --no-ansi
 
 COPY . /app
 
-CMD ["python", "main.py"]
+EXPOSE 8080
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "--threads", "8", "main:app"]
