@@ -3,17 +3,17 @@ from messenger.component.template import attachments
 from messenger.component.quick_reply import phone_number
 
 
-def send_mattress_category(messaging):
-    send_message_response(
-        messaging["sender"]["id"],
-        {"attachment": attachments.mattress_category_attachment()},
-    )
-
-
 def send_product_category(messaging):
     send_message_response(
         messaging["sender"]["id"],
         {"attachment": attachments.product_category_attachment()},
+    )
+
+
+def send_mattress_category(messaging):
+    send_message_response(
+        messaging["sender"]["id"],
+        {"attachment": attachments.mattress_category_attachment()},
     )
 
 
