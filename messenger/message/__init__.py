@@ -1,6 +1,6 @@
 import re
 
-from messenger.messages import debug
+from messenger.message import debug
 from messenger.component import quick_reply
 
 

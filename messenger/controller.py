@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 
-from messenger import verify, messages, messaging_referrals, messaging_postbacks
+from messenger import verify, message, referral, postback
 
 messenger_controller = Blueprint("messenger", __name__)
 
@@ -28,13 +28,13 @@ def handle_entry(entry):
     messaging = entry["messaging"].pop()
 
     if messaging.get("message"):
-        handler = messages.handler
+        handler = message.handler
 
-    elif messaging.get("messaging_referrals"):
-        handler = messaging_referrals.handler
+    elif messaging.get("referral"):
+        handler = referral.handler
 
-    elif messaging.get("messaging_postbacks"):
-        handler = messaging_postbacks.handler
+    elif messaging.get("postback"):
+        handler = postback.handler
         
     else:
         handler = lambda _: True

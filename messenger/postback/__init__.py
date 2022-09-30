@@ -1,7 +1,7 @@
 import json
 
 from messenger.component import template, converse
-from messenger.messaging_postbacks.postbacks import PostbackAction
+from messenger.postback.action import PostbackAction
 
 
 def handler(messaging):
