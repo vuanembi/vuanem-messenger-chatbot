@@ -23,7 +23,9 @@ def handler(messaging):
             "recipient": {"id": messaging["recipient"]["id"]},
             "mid": messaging["message"]["mid"],
             "phone_number": matched_payload.string,
-            "timestamp": datetime.utcfromtimestamp(messaging["timestamp"]).isoformat(),
+            "timestamp": datetime.utcfromtimestamp(
+                messaging["timestamp"] / 1000
+            ).isoformat(),
         }
 
         return bigquery.insert("p_QuickReply__PhoneNumber", [data])

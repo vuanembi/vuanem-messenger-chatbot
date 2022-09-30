@@ -1,13 +1,14 @@
 import re
 
 from messenger.message import debug
-from messenger.component import quick_reply
+from messenger.component.quick_reply import phone_number, ice_breaker
 
 
 def handler(messaging):
     message_text = messaging.get("message", {}).get("text", "")
 
-    quick_reply.phone_number.handler(messaging)
+    phone_number.handler(messaging)
+    ice_breaker.handler(messaging)
 
     debug_match = re.search("\/debug (\w*)", message_text)
 
