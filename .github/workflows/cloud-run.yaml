@@ -91,7 +91,7 @@ jobs:
       - run: >-
           gcloud run deploy ${{ needs.set-env.outputs.svc-name }}
           --image=${{ needs.set-env.outputs.image }}
-          --concurrency=1
+          --concurrency=80
           --memory=4Gi
           --cpu=2
           --platform=managed
