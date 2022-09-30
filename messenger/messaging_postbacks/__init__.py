@@ -27,6 +27,11 @@ def handler(messaging):
                 template.send_store_location,
                 messaging,
             )
+        elif action == PostbackAction.SUPPORT.value:
+            handler = lambda messaging: converse(
+                template.send_support,
+                messaging,
+            )
         else:
             handler = lambda _: True
 

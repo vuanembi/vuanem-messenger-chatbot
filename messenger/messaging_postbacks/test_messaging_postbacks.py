@@ -12,6 +12,7 @@ from messenger import messaging_postbacks
         messaging_postbacks.PostbackAction.MATTRESS_CATEGORY.value,
         messaging_postbacks.PostbackAction.PRODUCT_CATEGORY.value,
         messaging_postbacks.PostbackAction.STORE_LOCATION.value,
+        messaging_postbacks.PostbackAction.SUPPORT.value,
     ],
 )
 def test_messaging_postbacks(action):
