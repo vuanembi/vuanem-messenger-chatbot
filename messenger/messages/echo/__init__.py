@@ -1,4 +1,4 @@
-from messenger.messages.repository import send_message_response
+from messenger.repository import send_message_response
 from messenger.component import sender_action
 
 
