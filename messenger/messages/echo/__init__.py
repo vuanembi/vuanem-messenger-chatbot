@@ -11,5 +11,3 @@ def echo_service(messaging: dict):
         sender_action.typing_on(recipient_id)
         send_message_response(recipient_id, {"text": message_text})
         sender_action.typing_off(recipient_id)
-
-    return True

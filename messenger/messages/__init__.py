@@ -12,6 +12,8 @@ def handler(messaging):
     debug_match = re.search("\/debug (\w*)", message_text)
 
     if debug_match:
-        return debug.debug_service.debug(messaging)
+        debug.debug_service(messaging)
     else:
-        return echo.echo_service.echo(messaging)
+        echo.echo_service(messaging)
+
+    return True

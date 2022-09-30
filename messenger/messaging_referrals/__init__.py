@@ -25,4 +25,6 @@ def handler(messaging) -> list[dict]:
         },
     }
 
-    return bigquery.insert("p_MessagingReferrals", [data])
+    bigquery.insert("p_MessagingReferrals", [data])
+    
+    return True
