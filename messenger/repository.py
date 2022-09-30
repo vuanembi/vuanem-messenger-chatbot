@@ -26,9 +26,17 @@ def send_message(recipient_id: str, payload: dict) -> dict:
 
     r = client.post("me/messages", json=payload)
     data = r.json()
-    
+
     if r.status_code == 200:
         return data
     else:
         print(data)
         return data
+
+
+def send_message_response(recipient_id: str, message: dict) -> dict:
+    payload = {
+        "messaging_type": "RESPONSE",
+        "message": message,
+    }
+    return send_message(recipient_id, payload)
