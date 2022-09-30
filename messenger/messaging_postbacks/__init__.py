@@ -1,10 +1,7 @@
 import json
 
-from messenger.messaging_postbacks import (
-    product_category,
-    mattress_category,
-    store_location,
-)
+from messenger.component import template, converse
+from messenger.messaging_postbacks.postbacks import PostbackAction
 
 
 def handler(messaging):
@@ -15,17 +12,27 @@ def handler(messaging):
 
         action = payload.get("action", "")
 
-        if action == "PRODUCT_CATEGORY":
-            handler = product_category.send_product_category
-        elif action == "MATTRESS_CATEGORY":
-            handler = mattress_category.send_mattress_category
-        elif action == "STORE_LOCATION":
-            handler = store_location.send_store_location
+        if action == PostbackAction.PRODUCT_CATEGORY.value:
+            handler = lambda messaging: converse(
+                template.send_product_category,
+                messaging,
+            )
+        elif action == PostbackAction.MATTRESS_CATEGORY.value:
+            handler = lambda messaging: converse(
+                template.send_mattress_category,
+                messaging,
+            )
+        elif action == PostbackAction.STORE_LOCATION.value:
+            handler = lambda messaging: converse(
+                template.send_store_location,
+                messaging,
+            )
         else:
             handler = lambda _: True
 
         handler(messaging)
 
         return True
+
     except:
         return True
