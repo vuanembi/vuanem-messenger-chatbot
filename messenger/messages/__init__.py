@@ -1,6 +1,6 @@
 import re
 
-from messenger.messages import debug, echo
+from messenger.messages import debug
 from messenger.component import quick_reply
 
 
@@ -13,7 +13,5 @@ def handler(messaging):
 
     if debug_match:
         debug.debug_service(messaging)
-    else:
-        echo.echo_service(messaging)
 
     return True
