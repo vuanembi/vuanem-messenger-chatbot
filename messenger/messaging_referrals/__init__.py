@@ -3,7 +3,7 @@ from datetime import datetime
 from db import bigquery
 
 
-def handler(messaging) -> list[dict]:
+def handler(messaging):
     data = {
         "sender": {"id": messaging["sender"]["id"]},
         "recipient": {"id": messaging["recipient"]["id"]},
@@ -26,5 +26,5 @@ def handler(messaging) -> list[dict]:
     }
 
     bigquery.insert("p_MessagingReferrals", [data])
-    
+
     return True
