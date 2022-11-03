@@ -5,9 +5,8 @@ import {
     MessagingType,
 } from './messenger.interface';
 import { Message } from './message/message.interface';
-import { Referral } from './referral/referral.interface';
-
 import { handleMessage } from './message/message.service';
+import { Referral } from './referral/referral.interface';
 import { handleReferral } from './referral/referral.service';
 
 export const verifyService = (verification: VerifyRequest) =>

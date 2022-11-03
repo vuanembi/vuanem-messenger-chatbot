@@ -8,32 +8,14 @@ concurrency: ${{ github.ref }}
 
 env:
   NAME: vuanem-messenger-chatbot-${{ github.ref_name }}
-  ENV_KEY: env-vars
   ENV_FILE: env.yaml
   GCP_SA: bivuanem@voltaic-country-280607.iam.gserviceaccount.com
 
 jobs:
-  set-env:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "WEBHOOK_TOKEN: ${{ secrets.WEBHOOK_TOKEN }}" >> ${{ env.ENV_FILE }}
-          echo "FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.ENV_KEY }}
-          path: ${{ env.ENV_FILE }}
-
   deploy:
     runs-on: ubuntu-latest
-    needs: set-env
     steps:
       - uses: actions/checkout@v3
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.ENV_KEY }}
 
       - uses: actions/setup-node@v3
         with:
@@ -54,28 +36,20 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v0
 
+      - run: |
+          echo "WEBHOOK_TOKEN: ${{ secrets.WEBHOOK_TOKEN }}" >> ${{ env.ENV_FILE }}
+          echo "FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
+
       - run: >-
           gcloud functions deploy ${{ env.NAME }}
           --entry-point=main
           --source=dist
           --region=us-central1
           --timeout=120
-          --memory=512MB
+          --memory=256MB
           --runtime=nodejs16
           --trigger-http
           --no-user-output-enabled
           --service-account=${{ env.GCP_SA }}
           --env-vars-file=${{ env.ENV_FILE }}
           --allow-unauthenticated
-
-  clean-up:
-    runs-on: ubuntu-latest
-    needs: deploy
-    if: always()
-    steps:
-      - run: echo "" > ${{ env.ENV_FILE }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.ENV_KEY }}
-          path: ${{ env.ENV_FILE }}

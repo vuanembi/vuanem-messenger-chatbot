@@ -1,8 +1,8 @@
+import dayjs from 'dayjs';
 import { PhoneNumberUtil, PhoneNumberFormat } from 'google-libphonenumber';
 
 import { Message } from './message.interface';
 import { stream } from '../../db/bigquery.service';
-import dayjs from 'dayjs';
 
 const phoneUtil = PhoneNumberUtil.getInstance();
 

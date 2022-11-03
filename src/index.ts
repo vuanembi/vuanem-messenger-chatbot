@@ -10,6 +10,7 @@ app.use(cors());
 app.get('/', (req, res) => {
     res.status(200).json({ ok: 200 });
 });
+
 app.use('/messenger', messengerController);
 
 http('main', app);
