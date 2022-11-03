@@ -1,6 +1,6 @@
 {
-    "name": "genadyne-snowflake-backend",
-    "version": "0.3.0",
+    "name": "vuanem-messenger-chatbot",
+    "version": "0.2.0",
     "dependencies": {
         "@google-cloud/bigquery": "^6.0.3",
         "@google-cloud/functions-framework": "^3.1.2",
