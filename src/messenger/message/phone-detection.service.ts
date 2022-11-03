@@ -14,8 +14,12 @@ export const parsePhone = (raw: string) => {
     }
 };
 
-export const phoneDetection = (message: Message) => {
-    const number = parsePhone(message.message.text);
+export const detectPhone = (message: Message) => {
+    const { text } = message.message;
+
+    if (!text) return;
+
+    const number = parsePhone(text);
 
     if (!number) return;
 

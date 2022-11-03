@@ -18,4 +18,3 @@ export const stream = <D extends Record<string, any>>(
         .table(options.table)
         .insert(rows, { schema: { fields: options.schema } })
         .then(() => rows)
-        .catch((err) => console.log(err));

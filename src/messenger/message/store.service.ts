@@ -7,8 +7,19 @@ export const store = (message: Message) =>
     stream(
         [
             {
-                ...message,
+                sender: message.sender,
+                recipient: message.recipient,
                 timestamp: dayjs(message.timestamp).toISOString,
+                message: {
+                    mid: message.message.mid,
+                    text: message.message.text,
+                    quick_reply: {
+                        payload: message.message.quick_reply?.payload,
+                    },
+                    reply_to: {
+                        mid: message.message.reply_to?.mid,
+                    },
+                },
             },
         ],
         {

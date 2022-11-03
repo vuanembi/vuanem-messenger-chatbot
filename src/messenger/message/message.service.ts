@@ -1,6 +1,7 @@
 import { Message } from './message.interface';
-import { phoneDetection } from './phone-detection.service';
+import { detectPhone } from './phone-detection.service';
+import { debug } from './debug.service';
 import { store } from './store.service';
 
 export const handleMessage = (message: Message) =>
-    Promise.all([phoneDetection, store].map((service) => service(message)));
+    Promise.all([debug, detectPhone, store].map((service) => service(message)));

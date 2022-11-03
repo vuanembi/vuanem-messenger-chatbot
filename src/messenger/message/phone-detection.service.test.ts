@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { Message } from './message.interface';
-import { parsePhone, phoneDetection } from './phone-detection.service';
+import { parsePhone, detectPhone } from './phone-detection.service';
 
 const cases = ['0773314401', '+84 7733144 03', '077.331.4401'];
 
@@ -24,6 +24,6 @@ describe('Phone Detection', () => {
             },
         };
 
-        return phoneDetection(message)?.then((res) => expect(res).toBeTruthy());
+        return detectPhone(message)?.then((res) => expect(res).toBeTruthy());
     });
 });
