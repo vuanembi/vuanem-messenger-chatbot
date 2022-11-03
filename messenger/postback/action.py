@@ -1,7 +1,0 @@
-from enum import Enum
-
-class PostbackAction(Enum):
-    PRODUCT_CATEGORY = "PRODUCT_CATEGORY"
-    MATTRESS_CATEGORY = "MATTRESS_CATEGORY"
-    STORE_LOCATION = "STORE_LOCATION"
-    SUPPORT = "SUPPORT"
