@@ -8,7 +8,16 @@ const phoneUtil = PhoneNumberUtil.getInstance();
 
 export const parsePhone = (raw: string) => {
     try {
-        return phoneUtil.parse(raw, 'VN');
+        const number = phoneUtil.parse(raw, 'VN');
+        const phone = phoneUtil
+            .format(number, PhoneNumberFormat.NATIONAL)
+            .replace(/[^\d]/g, '');
+
+        if (!phone || !phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
+            return undefined;
+        } else {
+            return phone;
+        }
     } catch (err) {
         return undefined;
     }
@@ -17,28 +26,28 @@ export const parsePhone = (raw: string) => {
 export const detectPhone = (message: Message) => {
     const { text } = message.message;
 
-    if (!text) return;
+    const phone = text && parsePhone(text);
 
-    const number = parsePhone(text);
-
-    if (!number) return;
-
-    const data = {
-        mid: message.message.mid,
-        timestamp: dayjs(message.timestamp).toISOString(),
-        text: message.message.text,
-        phone: phoneUtil
-            .format(number, PhoneNumberFormat.NATIONAL)
-            .replace(/[^\d]/g, ''),
-    };
-
-    return stream([data], {
-        table: 'p_PhoneDetection',
-        schema: [
-            { name: 'mid', type: 'STRING' },
-            { name: 'timestamp', type: 'TIMESTAMP' },
-            { name: 'text', type: 'STRING' },
-            { name: 'phone', type: 'STRING' },
-        ],
-    });
+    return (
+        phone &&
+        stream(
+            [
+                {
+                    mid: message.message.mid,
+                    timestamp: dayjs(message.timestamp).toISOString(),
+                    text: message.message.text,
+                    phone,
+                },
+            ],
+            {
+                table: 'p_PhoneDetection',
+                schema: [
+                    { name: 'mid', type: 'STRING' },
+                    { name: 'timestamp', type: 'TIMESTAMP' },
+                    { name: 'text', type: 'STRING' },
+                    { name: 'phone', type: 'STRING' },
+                ],
+            },
+        )
+    );
 };
