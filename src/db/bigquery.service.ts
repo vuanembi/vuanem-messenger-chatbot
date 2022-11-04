@@ -1,4 +1,4 @@
-import { BigQuery } from '@google-cloud/bigquery';
+import { BigQuery, PartialInsertFailure } from '@google-cloud/bigquery';
 
 const bigquery = new BigQuery();
 
@@ -18,3 +18,10 @@ export const stream = <D extends Record<string, any>>(
         .table(options.table)
         .insert(rows, { schema: { fields: options.schema } })
         .then(() => rows)
+        .catch((err) => {
+            if (err.name === 'PartialFailureError') {
+                err.errors.forEach((error: PartialInsertFailure) =>
+                    console.log(JSON.stringify(error)),
+                );
+            }
+        });

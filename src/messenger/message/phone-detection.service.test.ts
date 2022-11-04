@@ -19,7 +19,7 @@ describe('Parse', () => {
 });
 
 describe('Phone Detection', () => {
-    it.each(cases)('%p', async (phone) => {
+    it.each(cases)('%p', async (phone, expected) => {
         const message: Message = {
             sender: { id: 'id' },
             recipient: { id: 'id' },
@@ -30,6 +30,8 @@ describe('Phone Detection', () => {
             },
         };
 
-        return detectPhone(message)?.then((res) => expect(res).toBeTruthy());
+        const result = await detectPhone(message);
+
+        expected ? expect(result).toBeTruthy() : expect(result).toBeFalsy();
     });
 });
