@@ -1,14 +1,14 @@
 import { Router } from 'express';
 
-import { VerifyRequest, Event, MessagingType } from './messenger.interface';
+import { Entry, Event, VerifyRequest } from './messenger.interface';
 import { verifyService, webhookService } from './messenger.service';
+import { storeService } from './store/store.service';
 
 export const messengerController = Router();
 
-messengerController.use((req, res, next) => {
-    const { body } = req;
+messengerController.use(({ body }: { body: Event }, res, next) => {
     console.log('body', JSON.stringify(body));
-    next();
+    storeService(body.entry).finally(() => next());
 });
 
 messengerController.get('/', ({ query }, res) => {
@@ -18,7 +18,7 @@ messengerController.get('/', ({ query }, res) => {
 });
 
 messengerController.post('/', ({ body }, res) => {
-    webhookService(body as Event<MessagingType>)
+    webhookService(body as Event)
         .catch((err) => {
             console.log(JSON.stringify(err));
             res.status(500).json({ err });

@@ -21,7 +21,7 @@ export const stream = <D extends Record<string, any>>(
         .catch((err) => {
             if (err.name === 'PartialFailureError') {
                 err.errors.forEach((error: PartialInsertFailure) =>
-                    console.log(JSON.stringify(error)),
+                    console.log('bigquery error', JSON.stringify(error)),
                 );
             }
         });

@@ -1,5 +1,5 @@
+import { MessagingType } from '../messenger.interface';
 import { Referral } from './referral.interface';
-import { store } from './store.service';
 
-export const handleReferral = (message: Referral) =>
-    Promise.all([store].map((service) => service(message)));
+export const isReferral = (messaging: MessagingType): messaging is Referral =>
+    'referral' in messaging;

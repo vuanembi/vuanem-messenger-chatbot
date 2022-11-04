@@ -15,13 +15,13 @@ export type Messaging = {
 
 export type MessagingType = Message | Referral
 
-export type Entry<MessagingType> = {
+export type Entry = {
     id: string;
     time: number;
     messaging: [MessagingType];
 };
 
-export type Event<MessagingType> = {
+export type Event= {
     object: 'page';
-    entry: Entry<MessagingType>[];
+    entry: Entry[];
 };
